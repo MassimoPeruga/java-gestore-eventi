@@ -2,13 +2,14 @@ package org.learning.test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventManager {
     //attributi
     private final String title;
-    private List<Event> events;
+    private final List<Event> events;
 
     //costruttore
     public EventManager(String title) throws IllegalArgumentException {
@@ -44,9 +45,9 @@ public class EventManager {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(title).append("\n");
+        sb.append(title).append(": \n");
         this.events.stream()
-                .sorted((e1, e2) -> e1.getDate().compareTo(e2.getDate()))
+                .sorted(Comparator.comparing(Event::getDate))
                 .forEach(event -> sb.append(event.getDate()).append(" - ").append(event.getTitle()).append("\n"));
         return sb.toString();
     }
